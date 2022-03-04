@@ -1,0 +1,14 @@
+---
+- name: Install Applecation
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Deploy Applecation
+      docker_container:
+        name: application
+        image: temkaxd96/application:latest  
+        pull: yes
+        restart_policy: always
+        ports: 
+          - 8080:8080   

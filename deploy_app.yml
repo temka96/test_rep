@@ -1,0 +1,7 @@
+---
+- name: Install Application
+  hosts: ubuntu
+  connection: ssh
+ 
+  roles:
+    - { role: deployment_application }

@@ -1,0 +1,3 @@
+---
+# vars file for deployment_application
+ansible_python_interpreter: /usr/bin/python3

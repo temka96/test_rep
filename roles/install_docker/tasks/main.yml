@@ -1,0 +1,75 @@
+---
+# tasks file for install_docker
+
+  - block: #=========Block for RedHat=====
+    - name: Update cache
+      yum:
+        update_cache=yes
+
+    - name: Docker yum utils
+      yum:
+        name: yum-utils
+        state: latest
+
+    - name: Add Docker repo
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+
+    - name: Install Docker
+      yum:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Start the Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group
+      user:
+        name:  artem
+        groups: docker
+        append: yes
+    when: ansible_os_family == "RedHat"
+
+
+  - block: #=========Block for Debian=====
+    - name: Update cache
+      apt:
+        update_cache=yes
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Start the Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group
+      user:
+        name:  medvedev
+        groups: docker
+        append: yes
+    when: ansible_os_family == "Debian"

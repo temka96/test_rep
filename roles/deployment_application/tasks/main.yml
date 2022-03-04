@@ -1,0 +1,21 @@
+---
+# tasks file for deployment_application
+- name: pip-packages are installed
+  pip:
+    name:
+      - docker>=1.8.0
+      - PyYAML>=3.11
+      - docker-compose>=1.7.0
+
+- name: Deploy Docker Image
+  docker_container:
+    name: application
+    image: temkaxd96/application:latest
+    pull: yes
+    restart_policy: always
+    ports:
+      - 8080:8080
+    env:
+      MYSQL_URL: jdbc:mysql://mysql/petclinic 
+      MYSQL_USER: petclinic  
+      MYSQL_PASS: petclinic    
