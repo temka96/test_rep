@@ -1,14 +1,11 @@
 ---
-- name: Install Applecation
-  hosts: localhost
+- name: Update Cache
+  hosts: test
   become: yes
+  connection: ssh
 
   tasks:
-    - name: Deploy Applecation
-      docker_container:
-        name: application
-        image: temkaxd96/application:latest  
-        pull: yes
-        restart_policy: always
-        ports: 
-          - 8080:8080   
+    - name: update
+      apt:
+        update_cache=yes 
+      

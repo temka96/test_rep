@@ -1,6 +1,6 @@
 ---
 - name: Install Docker
-  hosts: ubuntu
+  hosts: localhost
   connection: ssh
   become: yes
 

@@ -69,7 +69,7 @@
 
     - name: Add user to docker group
       user:
-        name:  medvedev
+        name: artem
         groups: docker
         append: yes
     when: ansible_os_family == "Debian"
